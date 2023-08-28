@@ -9,3 +9,10 @@ def substraction (a,b):
   
 def add(a,b):
     return a+b
+
+def multiplicacion(multiplicando,multiplicador):
+    try:
+        mul = multiplicando * multiplicador
+        return mul
+    except TypeError:
+        print("Los argumentos ingresados deben ser numeros")
