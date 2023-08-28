@@ -7,8 +7,11 @@ def divide (a,b):
 def substraction (a,b):
     return a-b
   
-def add(a,b):
-    return a+b
+def addition(a,b):
+    try:
+        return (a+b)
+    except TypeError:
+        print("Los argumentos ingresados deben ser numeros")
 
 def multiplicacion(multiplicando,multiplicador):
     try:
