@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}" />
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body class="layout-body">
+    <nav class="layout-nav">
+        
+        <div class="logo">
+            <a class="logo" href="/">
+                Grupo27
+            </div>
+        </div>
+        <div class="nav-btn">
+            <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+            </label>
+        </div>
+        
+        <div class="nav-links">
+            <a href="" target="">Home</a>
+            <a href="" target="">Prueba 1</a>
+            <a href="" target="">Prueba 2</a>
+            <a href="" target="">Prueba 3</a>
+        </div>
+
+        <input type="checkbox" id="nav-check">
+    </nav>
+    
+    <main class="layout-main">
+    {% block main %}
+        
+    {% endblock %}
+    </main>
+
+    <footer class="layout-footer">
+
+    </footer>
+</body>
+
+</html>

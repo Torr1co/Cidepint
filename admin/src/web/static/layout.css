@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&family=Playfair+Display&display=swap');
+/*
+    font-family: 'Playfair Display', serif; -> main
+    font-family: 'PT Sans', sans-serif; -> titles
+*/
+@font-face{
+    font-family: 'Playfair Display';
+    src: url('https://fonts.googleapis.com/css2?family=Playfair+Display');
+}
+@font-face{
+    font-family: 'PT Sans';
+    src: url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.layout-body {
+    margin: 0px;
+    font-family: 'Playfair Display', serif;
+    background-color: #A8D0E6;
+    color: #FFFF;
+}
+
+.layout-main {
+    margin: 3rem;
+    padding: 1rem;
+    background: #24305E;
+}
+
+h1 {
+    font-family: 'PT Sans', sans-serif;
+}
+
+.layout-nav {
+    height: 50px;
+    width: 100%;
+    font-family: 'PT Sans', sans-serif;
+    background-color: #24305E ;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.layout-footer {
+    padding: 3rem;
+}
+
+.layout-nav > .logo {
+    display: inline;
+}
+
+.layout-nav > .logo > .logo {
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    color: #fff;
+    padding: 10px 10px 10px 10px;
+}
+
+.nav-btn  > .nav-btn {
+    display: none;
+}
+
+.layout-nav > .nav-links {
+    display: inline;
+    text-decoration: none;
+    float: right;
+    font-size: 18px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.layout-nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: #efefef;
+}
+
+.layout-nav > .nav-links > a:hover {
+    background-color: #24305E 
+}
+
+.layout-nav > #nav-check {
+    display: none;  
+}
+  
+@media (max-width:600px) {
+    .layout-nav > #nav-check {
+        display: block;  
+    }
+
+    .layout-nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
+    .layout-nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+    }
+    .layout-nav > .nav-btn > label:hover,.layout-nav  #nav-check:checked ~ .nav-btn > label {
+        background-color: #24305E 
+    }
+    .layout-nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #eee;
+    }
+    .layout-nav > .nav-links {
+        position: absolute;
+        display: block;
+        width: 100%;
+        background-color: #24305E ;
+        height: 0px;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 50px;
+        left: 0px;
+    }
+    .layout-nav > .nav-links > a {
+        display: block;
+        width: 100%;
+    }
+    .layout-nav > #nav-check:not(:checked) ~ .nav-links {
+        height: 0px;
+    }
+    .layout-nav > #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+    }
+}
