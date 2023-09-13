@@ -29,8 +29,13 @@
     background: #24305E;
 }
 
-h1 {
+h1,h2 {
     font-family: 'PT Sans', sans-serif;
+}
+
+h3 {
+    font-family: 'PT Sans', sans-serif;
+    color: black;
 }
 
 .layout-nav {
