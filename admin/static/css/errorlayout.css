@@ -1,0 +1,49 @@
+@font-face{
+    font-family: 'Playfair Display';
+    src: url('https://fonts.googleapis.com/css2?family=Playfair+Display');
+}
+@font-face{
+    font-family: 'PT Sans';
+    src: url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700');
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#A8D0E6,#24305E);
+    background-attachment: fixed;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+  }
+
+.main-content {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+}
+
+.redirect-button {
+    margin-top: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: #A8D0E6 ;
+    background-color:  #24305E;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    height: 2rem;
+    width: fit-content;
+    text-decoration: none;
+}
+
+.redirect-button:hover {
+    background-color: #374785;
+    scale: 1.05;
+}
+
+.error-title {
+    font-size: 100px;
+    color: #24305E;
+    font-family: 'PT Sans', sans-serif;
+}

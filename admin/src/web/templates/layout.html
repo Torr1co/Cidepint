@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" />
     <title>{% block title %}{% endblock %}</title>
-    {% endblock %}
 </head>
 
 <body class="layout-body">
@@ -27,9 +25,10 @@
         
         <div class="nav-links">
             <a href="" target="">Home</a>
-            <a href="" target="">Prueba 1</a>
-            <a href="" target="">Prueba 2</a>
-            <a href="" target="">Prueba 3</a>
+            <a href="" target="">401</a>
+            <a href="" target="">402</a>
+            <a href="" target="">404</a>
+            <a href="" target="">500</a>
         </div>
 
         <input type="checkbox" id="nav-check">
