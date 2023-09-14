@@ -7,7 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/errorlayout.css') }}" >
 </head>
 <body>
-    <h1 class="error-title">{% block errortitle %}{% endblock %}</h1>
+    <h1 class="error-title">{% block errortitle1 %}{% endblock %}</h1>
+    <h1 class="error-title">{% block errortitle2 %}{% endblock %}</h1>
     <div class="main-content">
         <h3>{% block message %}{% endblock %}</h3>
         <a class="redirect-button" href="/">Volver al Inicio</a>

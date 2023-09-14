@@ -1,6 +1,6 @@
 @font-face{
-    font-family: 'Playfair Display';
-    src: url('https://fonts.googleapis.com/css2?family=Playfair+Display');
+    font-family: 'Open Sans';
+    src: url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 }
 @font-face{
     font-family: 'PT Sans';
@@ -8,17 +8,18 @@
 }
 
 body {
-    margin: 0;
+    margin: none;
     width: 100%;
     height: 100%;
-    background: linear-gradient(#A8D0E6,#24305E);
+    background: linear-gradient(#A8D0E6,#3f4b7a);
     background-attachment: fixed;
     text-align: center;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Open-Sans', sans-serif;
+    color: #24305E;
   }
 
 .main-content {
-    margin: 0;
+    margin: none;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +28,7 @@ body {
 
 .redirect-button {
     margin-top: 2rem;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Open-Sans', sans-serif;
     color: #A8D0E6 ;
     background-color:  #24305E;
     padding: 0.5rem 1rem;
@@ -43,7 +44,9 @@ body {
 }
 
 .error-title {
-    font-size: 100px;
+    margin-bottom: 4rem;
+    margin-top: none;
+    font-size: 6rem;
     color: #24305E;
     font-family: 'PT Sans', sans-serif;
 }
