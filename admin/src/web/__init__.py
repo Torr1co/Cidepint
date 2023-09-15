@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, abort
 
 def create_app(env="development", static_folder="../../static"):
     """"Create app docstring"""
@@ -8,6 +8,20 @@ def create_app(env="development", static_folder="../../static"):
     @app.get("/")
     def home():
         return render_template("home.html")
+    
+    # Error pages
+    @app.get("/401")
+    def error_401():
+        abort(401)
+    @app.get("/403")
+    def error_403():
+        abort(403)
+    @app.get("/404")
+    def error_404():
+        abort(404)
+    @app.get("/500")
+    def error_500():
+        abort(500)
     
     # Controladores para manejar errores
     @app.errorhandler(401)
