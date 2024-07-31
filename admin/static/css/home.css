@@ -1,0 +1,32 @@
+/* En home.css */
+.centered-image {
+    text-align: center; /* Alinea la imagen al centro horizontalmente */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los elementos dentro del div */
+    align-items: center; /* Centra verticalmente los elementos dentro del div */
+    flex-direction: column; /* Alinea los elementos en columna */
+
+}
+
+.centered-image img {
+    max-width: 100%;
+    max-height: 100%;
+    background-color: transparent;
+}
+
+.centered-text {
+    text-align: center;
+    padding: 10px 20px; /* Reducir el espaciado vertical (arriba y abajo) */
+}
+
+/* En home.css */
+.content-box {
+    background-color: #f5f5f5; /* Fondo gris claro */
+    margin: 10px auto 100px; /* Margen superior de 10px, margen inferior de 100px, centrado horizontalmente */
+    padding: 20px; /* Espaciado interno dentro del recuadro blanco */
+    border: 1px solid #ddd; /* Borde suave alrededor del recuadro blanco */
+    border-radius: 10px; /* Suaviza los bordes */
+    width: 90%; /* Ancho deseado, ajustado al 90% */
+    max-width: 1600px; /* Ancho máximo para evitar que se extienda demasiado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}

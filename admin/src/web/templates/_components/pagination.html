@@ -1,0 +1,23 @@
+{% macro render_pagination(base_url, page, total_pages) %}
+<div class="flex flex-col items-center">
+    <!-- Help text -->
+    <span class="text-sm text-white dark:text-gray-400">
+        Mostrando la pagina <span class="font-semibold text-gray-400 dark:text-white">{{ page }}</span> de <span class="font-semibold text-gray-400 dark:text-white">{{ 1 if total_pages == 0 else total_pages }}</span>
+    </span>
+    <div class="inline-flex mt-2 xs:mt-0">
+    <!-- Buttons -->
+    <a href="{{ base_url }}?page={{ page - 1 if page > 1 else 1 }}" class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-blue-500 rounded-l hover:bg-blue-700 ">
+        <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg>
+        Previo
+    </a>
+    <a href="{{ base_url }}?page={{ page + 1 if page < total_pages else page }}" class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-blue-500 border-0 border-l border-gray-700 rounded-r hover:bg-blue-700 dark:bg-blue-500 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue-700 dark:hover:text-white">
+        Siguiente
+        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+    </a>
+    </div>
+</div>
+{% endmacro %}

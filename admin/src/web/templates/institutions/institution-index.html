@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% import "_components/pagination.html" as Pagination %}
+{% block head %}
+{{ super() }} {% endblock %} {% block title %}CRUD{% endblock %}
+{% block main %}
+<div class="max-w-7xl w-7xl mx-auto h-full bg-blue-900 p-6 shadow rounded">
+    <hgroup class="flex flex-col gap-4 mb-4">
+        <h1 class="text-2xl text-white">Administracion de instituciónes</h1>
+        <div class="flex items-center justify-between">
+            <form id="search-form" method="GET" action="{{ url_for('institutions.institution_index') }}" class="flex items-center justify-between gap-3">
+            <form id="search-form" method="GET" action="{{ url_for('institutions.institution_index') }}" class="flex items-center justify-between gap-3">
+                <div class="relative min-w-[16rem]">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="q" name='q' placeholder="Buscar por palabras clave" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search Mockups, Logos...">
+                </div>
+                <button type="submit" form="search-form" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Buscar</button>
+            </form>
+            <a href="{{ url_for('institutions.institution_create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Crear</a>
+        </div>
+    </hgroup>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Correo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Dirección Completa
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Habilitado
+                    </th>
+                    <th scope="col" class="px-3 py-3">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inst in institutions %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ inst.name }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ inst.email }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ inst.address }}, {{ inst.location }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if inst.enabled %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        Si</span>
+                        {% else %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                        No</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-3 py-4 flex flex-col gap-1">
+                        <a href="{{ url_for('institutions.institution_show', inst_id=inst.id) }}" type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        {% call Form.render_form(delete_form, method="POST", action=url_for('institutions.institution_delete', inst_id=inst.id), class='flex') %}
+                        {{ Form.button_submit("Eliminar", class="font-medium text-red-600 dark:text-red-500 hover:underline") }}
+                        {% endcall %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if institutions|length == 0 %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th colspan="10" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        No se encontraron resultados
+                    </th>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    {{ Pagination.render_pagination(url_for('institutions.institution_index'), page, total_pages) }}
+</section>
+</div>
+{% endblock %}

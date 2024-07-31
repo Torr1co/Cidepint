@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% import "_components/pagination.html" as Pagination %}
+{% block head %}
+{{ super() }} {% endblock %} {% block title %}CRUD{% endblock %}
+{% block main %}
+<div class="max-w-7xl mx-auto h-full bg-blue-900 p-6 shadow">
+
+    <hgroup class="flex flex-col gap-4 mb-4">
+
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl text-white">Administracion de Pedidos</h1>
+            <!-- <a href="{{ url_for('service_request.service_request_create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear</a> -->
+        </div>
+        {% call Form.render_form(search_form, method="GET", action=url_for('service_request.service_request_index')) %}
+        {{ Form.button_submit("Buscar") }}
+        {% endcall %}
+    </hgroup>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Titulo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Usuario
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tipo de servicio
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Estado
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Fecha de creacion
+                    </th>
+                    <th scope="col" class="px-3 py-3">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in service_requests %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ request.title }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ request.user.username }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ request.service.service_type.value }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            {{ request.status.value }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ request.creation_date.strftime('%d/%m/%Y') }}
+                    </td>
+                    <td class="px-3 py-4 flex flex-col gap-1">
+                        <a href="{{ url_for('service_request.service_request_show', req_id=request.id) }}"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
+                        <a href="{{ url_for('service_request.service_request_update', req_id=request.id) }}"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if service_requests|length == 0 %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th colspan="10" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        No se encontraron resultados
+                    </th>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    {{ Pagination.render_pagination(url_for('service_request.service_request_index'), page, total_pages) }}
+</section>
+</div>
+<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+{% endblock %}

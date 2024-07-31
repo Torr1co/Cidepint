@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% block head %}
+{{ super() }} {% endblock %} {% block title %}Actualizar pedido{% endblock %}
+{% block main %}
+<div class="max-w-7xl mx-auto h-full bg-blue-900 p-6 shadow">
+    <h2 class="text-2xl text-white mb-4">Actualizar Pedido</h2>
+    <section class="mb-12">
+        {% call Form.render_form(update_form, method="POST", action=url_for('service_request.service_request_update', req_id=service_request.id)) %}
+        {{ Form.button_submit("Actualizar") }}
+        {% endcall %}
+    </section>
+    <h2 class="text-2xl text-white mb-4">Agregar Nota</h2>
+    <section class="mb-12">
+        {% call Form.render_form(note_form, method="POST", action=url_for('service_request.service_request_add_note', req_id=service_request.id)) %}
+        {{ Form.button_submit("Actualizar") }}
+        {% endcall %}
+    </section>
+    </div>
+{% endblock %}

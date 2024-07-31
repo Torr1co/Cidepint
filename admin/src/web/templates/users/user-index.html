@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% import "_components/pagination.html" as Pagination %}
+{% block head %}
+{{ super() }} {% endblock %} {% block title %}CRUD{% endblock %}
+{% block main %}
+<div class="max-w-7xl mx-auto h-full bg-blue-900 p-6 shadow">
+    <hgroup class="flex items-center justify-between">
+        <h1 class="text-2xl text-white mb-4">Administracion de usuarios</h1>
+
+    <form id="search-form" method="GET" action="{{ url_for('users.user_index') }}" class="flex items-center justify-between gap-3">
+
+    <select id="active" name="active" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option value="all" selected>Mostrar Todos</option>
+      <option value="active">Mostrar habilitados</option>
+      <option value="deactive">Mostrar deshabilitados</option>
+        </select>
+
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input type="search" name='search' placeholder="Buscar por email" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos...">
+        </div>
+        <button type="submit" form="search-form" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
+    </form>
+    </hgroup>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre de Usuario
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Correo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre Completo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Habilitado
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ user.username }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ user.email }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ user.firstname }} {{ user.lastname }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if user.active %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        Si</span>
+                        {% else %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                        No</span>
+                        {% endif %}
+                    </td>
+
+                    <td class="px-6 py-4">
+                        {% if user.can_update %}
+                        <a href="{{ url_for('users.user_page', user_id=user.id) }}" type="submit" class="font-medium text-blue-600 hover:underline">Editar</button>
+                        {% call Form.render_form(delete_form, method="POST", action=url_for('users.user_delete', user_id=user.id), class='flex') %}
+                           {{ Form.button_submit("Eliminar", class="font-medium text-red-600 dark:text-red-500 hover:underline") }}
+                        {% endcall %}
+                        {% else %}
+                        <p class="font-medium text-gray-600 hover:underline cursor-not-allowed">Editar no disponible</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if users|length == 0 %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th colspan="5" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        No se encontraron resultados
+                    </th>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    {{ Pagination.render_pagination(url_for('users.user_index'), page, total_pages) }}
+</section>
+</div>
+<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+{% endblock %}

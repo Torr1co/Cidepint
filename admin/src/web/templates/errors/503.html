@@ -1,0 +1,12 @@
+{% extends "errorlayout.html" %}
+{% block title %}503!{% endblock %}
+{% block errortitle1 %}Error 503{% endblock %}
+{% block errortitle2 %}Servicio no disponible{% endblock %}
+{% block message %}{{config.maintenance_message}}
+
+
+<h2>Telefono de Contacto: <b>{{config.phone_number}} </b></h2>
+
+<h2>Correo de Contacto: <b>{{config.email}}</b></h2>
+
+{% endblock %}

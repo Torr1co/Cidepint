@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% import "_components/pagination.html" as Pagination %}
+{% block head %}
+{{ super() }} {% endblock %} {% block title %}CRUD{% endblock %}
+{% block main %}
+<div class="max-w-7xl mx-auto h-full bg-blue-900 p-6 shadow">
+    <hgroup class="flex items-center justify-between">
+        <h1 class="text-2xl text-white mb-4">Administracion de servicios</h1>
+        <a href="{{ url_for('services.service_create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
+        focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+        dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir</a>
+
+    </hgroup>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Descripción
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Laboratorio
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tipo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Habilitado
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ service.name }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ service.description }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ service.laboratory }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ service.service_type }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if service.enabled %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        Si</span>
+                        {% else %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                        No</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-3 py-4 flex flex-col gap-1">
+                        <a href="{{ url_for('services.service_show', service_id=service.id) }}" type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        {% if session["role"] != "OPERATOR" %}
+                        {% call Form.render_form(delete_form, method="POST", action=url_for('services.service_delete', service_id=service.id), class='flex') %}
+                        {{ Form.button_submit("Eliminar", class="font-medium text-red-600 dark:text-red-500 hover:underline") }}
+                        {% endcall %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if services|length == 0 %}
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th colspan="7" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        No se encontraron resultados
+                    </th>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    {{ Pagination.render_pagination(url_for('services.service_index'), page, total_pages) }}
+
+</section>
+</div>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends "layout.html" %} {% block head %}
+{{ super() }} {% endblock %} {% block title %}CRUD{% endblock %}
+{% block main %}
+<div class="max-w-7xl mx-auto bg-blue-900 p-6 shadow">
+    <section>
+        <hgroup class="flex items-center justify-between">
+            <h1 class="text-2xl text-white mb-4">Administracion de instituciónes</h1>
+            <button id="open-modal" class="w-20 mb-4 p-2 text-base text-white hover:bg-green-400 hover:text-white rounded text-center" type="button">Agregar</button>
+        </hgroup>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Nombre
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Información
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Dirección
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Localizacion
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Web
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Palabras Clave
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Cronograma
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Habilitado
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Email
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inst in items %}
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ inst.name }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ inst.information }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ inst.address }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ inst.location }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ inst.web }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ inst.keyword }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ inst.days_and_opening_hours }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ inst.email }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if inst.True %}
+                            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            Si</span>
+                            {% else %}
+                            <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                            No</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            <button id="edit-row" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</button>
+                        </td>
+                    </tr>
+                    <tr id="TREdit" class="px-6 py-4 hidden">
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="nombre" type="text" placeholder="Nombre">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="information" type="text" placeholder="Información">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="address" type="text" placeholder="Dirección">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="loc" type="text" placeholder="Localizacion">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="web" type="text" placeholder="Web.com">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="keyword" type="text" placeholder="...">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="days_and_opening_hours" type="text" placeholder="...">
+                        </td>
+                        <td>
+                            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email@mail.com">
+                        </td>
+                        <td>
+                            <input id="enabled" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500
+                            dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        </td>
+                        <td>
+                            <form method="POST" action="#">
+                                <button type="submit">Actualizar</button>
+                            </form>
+                            <a href="#">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div id="myModal" visi class="flex m-0 modal invisible fixed inset-0 items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+
+    <div class="modal-container bg-white md:mx-auto md:w-96 w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+        <!-- Content -->
+        <div class="modal-content py-4 text-left px-6">
+
+            <!-- Formulario CRUD -->
+            <form method="POST" action="#">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="nombre">
+                    Nombre
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="nombre" type="text" placeholder="Nombre">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="information">
+                    Información
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="information" type="text" placeholder="Información">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="address">
+                    Dirección
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="address" type="text" placeholder="Dirección">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="loc">
+                    Localizacion
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="loc" type="text" placeholder="Localizacion">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="web">
+                    Web
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="web" type="text" placeholder="Web.com">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="keyword">
+                    Palabras clave
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="keyword" type="text" placeholder="...">
+                <label class="block text-gray-700 text-sm font-bold m-2" for="days_and_opening_hours">
+                    Cronograma
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="days_and_opening_hours" type="text" placeholder="...">
+                <br>
+                <input id="enabled" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="enabled" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Habilitado</label>
+                <br>
+                <label class="block text-gray-700 text-sm font-bold m-2" for="email">
+                    Email
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email" type="email" placeholder="Email@mail.com">
+
+                <!-- Agregar más campos del formulario aquí -->
+
+                <div class="mt-4">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                        Guardar
+                    </button>
+                    <button id="close-modal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button">
+                        Cerrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Scripts de Modificación, Agregar y Eliminar
+
+    // MODAL para Agregar
+    const openModal = document.getElementById('open-modal');
+    const closeModal = document.getElementById('close-modal');
+    const modal = document.getElementById('myModal');
+
+    openModal.addEventListener('click', () => {
+        modal.classList.remove('invisible');
+        modal.classList.add('visible');
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.classList.remove('visible');
+        modal.classList.add('invisible');
+    });
+
+
+    //DATOS PARA RELLENAR Y PROBAR
+    const editRow = document.getElementById('edit-row');
+    const row = document.getElementById('TREdit')
+
+    editRow.addEventListener('click', () =>{
+        if(row.classList.contains('hidden')){
+            row.classList.remove('hidden');
+        }
+        else{
+            row.classList.add('hidden');
+        }
+    })
+</script>
+{% endblock %}

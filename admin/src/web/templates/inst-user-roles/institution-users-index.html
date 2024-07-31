@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% import "_components/pagination.html" as Pagination %}
+{% block head %}
+{{ super() }} {% endblock %} {% block title %}CRUD{% endblock %}
+{% block main %}
+<div class="max-w-7xl mx-auto h-full bg-blue-900 p-6 shadow">
+    <hgroup class="flex justify-between mb-4">
+        <h1 class="text-2xl text-white">Administracion de usuarios de la institucion</h1>
+        <div class="flex items-center justify-between">
+            <a href="{{ url_for('inst_user_role.create_role') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Añadir usuario</a>
+        </div>
+    </hgroup>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre de usuario
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre completo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Correo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Rol
+                    </th>
+                    <th scope="col" class="px-3 py-3">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr class="bg-white border-b ">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        {{ user.username }}
+                    </th>
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        {{ user.firstname }} {{ user.lastname }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ user.email }}
+                    </td>
+                    <td class="px-3 py-4">
+                        <form method="POST" id="{{ user.id }}-update" action="{{url_for('inst_user_role.update_role', user_id=user.id)}}" class='flex'>
+                        {% call Form.render_field_text(user.role_form.role) %}
+                        {% endcall %}
+                        </form>
+                    </td>
+                    <td class="px-3 py-4 flex flex-col gap-1">
+                        <div>
+                        <button type="submit" form="{{ user.id }}-update" class="font-medium text-blue-600 hover:underline" form="{{ user.id }}-update">Actualizar</button>
+                    </div>{% call Form.render_form(delete_form, method="POST", action=url_for('inst_user_role.delete_role', user_id=user.id), class='flex') %}
+                        {{ Form.button_submit("Eliminar", class="font-medium text-red-600  hover:underline") }}
+                        {% endcall %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if users|length == 0 %}
+                <tr class="bg-white border-b ">
+                    <th colspan="10" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        No se encontraron resultados
+                    </th>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    {{ Pagination.render_pagination(url_for('inst_user_role.institution_users_page'), page, total_pages) }}
+</section>
+</div>
+<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+{% endblock %}

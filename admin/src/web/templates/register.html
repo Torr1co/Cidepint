@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% import "_components/form.html" as Form %}
+{% block title %}Registro{% endblock %} {% block main %}
+<div class="bg-blue-300 min-h-screen flex flex-col justify-center items-center">
+  <div class="sm:rounded-lg bg-white max-w-md w-full p-4">
+      <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Registro</h2>
+      {% call Form.render_form(form, method="POST", action=url_for('simpleusers.create_simpleuser'), class='flex flex-col md:mt-4 gap-5') %}
+      {{ Form.button_submit("Registrarse") }}
+      {% endcall %}
+  </div>
+</div>
+{% endblock %}
